@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded",function(e){
 
-
-
     const BASE_URL = "http://localhost:3000"
     const TRAINERS_URL = `${BASE_URL}/trainers`
     const POKEMONS_URL = `${BASE_URL}/pokemons`
@@ -11,56 +9,49 @@ document.addEventListener("DOMContentLoaded",function(e){
     // When a user loads the page, they should see all trainers, 
     // with their current team of Pokemon.
     
-    getTrainers()
-    function getTrainers (){
+    
+
+    function getTrainers(){
         fetch(TRAINERS_URL)
         .then(res => res.json())
         .then(trainers => renderTrainers(trainers)
         
-        )}
+    )}
+
+    function getPokemons(){
+        fetch(POKEMONS_URL)
+        .then(resp => resp.json())
+        .then(pokemons => renderPokemons(pokemons))
+    }
         
-        
-        
-        function renderTrainers(trainers){
-            trainers.forEach(element => {
-                 let trainerDiv = document.createElement("div") 
-                     trainerDiv.className = "card"
-                     trainerDiv.dataset.id = `${element.id}`
-                     trainerDiv.innerHTML =
-                     `<p> ${element.name}</p>
-                      <button data-trainer-id=${element.id}> Add Pokemon </button>
-                      <ul> </ul>
-                     `
            
-
-
-            
-        
-        
-             console.log(trainerDiv)  
-        //  console.log(element["id"])
+    function renderTrainers(trainers){
+        trainers.forEach(element => {
+                let trainerDiv = document.createElement("div") 
+                    trainerDiv.className = "card"
+                    trainerDiv.dataset.id = `${element.id}`
+                    trainerDiv.innerHTML =
+                        `<p> ${element.name}</p>
+                        <button data-trainer-id=${element.id}> Add Pokemon </button>
+                        <ul></ul>
+                        `
+            main.append(trainerDiv)  
         }) 
-     };
-        
-        
-        
-        // console.log(trainers[1].name)
-        
-    })
+    };
+           
+    function renderPokemons(data){
+        // console.log(data)
+        data.forEach(element => {
+            let li = document.createElement('li')
+            li.innerHTML = `${element.nickname} (${element.species})
+            <button class="release" data-pokemon-id="${element.id}">Release</button>
+            `
+            let trainerDiv = document.querySelector(`[data-id="${element.trainer_id}"]`)
+            trainerDiv.append(li)
+            console.log(trainerDiv)
+        })
+    }
     
-    // renderTrainers()
-    
-    
-    
-    // for (let i = 0; i < trainers.length; i++) {
-    //     trainerDiv.innerHTML = `
-    //          <p> ${trainers[i].name}</p>
-    //          <ul>
-    //         </ul>
-    //         `
-
-    //     }
-    //     main.append(trainerDiv)
     
 // Whenever a user hits "Add Pokemon" and they have space on their team, 
 // they should get a new Pokemon.
@@ -78,4 +69,6 @@ document.addEventListener("DOMContentLoaded",function(e){
 
 
 
-
+getTrainers();
+getPokemons();
+})
