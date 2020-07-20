@@ -48,15 +48,22 @@ document.addEventListener("DOMContentLoaded",function(e){
             `
             let trainerDiv = document.querySelector(`[data-id="${element.trainer_id}"]`)
             trainerDiv.append(li)
-            console.log(trainerDiv)
+            // console.log(trainerDiv)
         })
     }
+    
     
     
 // Whenever a user hits "Add Pokemon" and they have space on their team, 
 // they should get a new Pokemon.
 
-
+function eventHandler(){
+    document.addEventListener('click',(e) => {
+        console.log(e.target)
+        const removeButton = e.target.className
+        console.log(removeButton["data-pokemon-id"]) // LEFT OFF HERE> TRY TO FIND POKEMON ID
+    })
+}
 
 
 
@@ -69,6 +76,7 @@ document.addEventListener("DOMContentLoaded",function(e){
 
 
 
+eventHandler();
 getTrainers();
 getPokemons();
 })
