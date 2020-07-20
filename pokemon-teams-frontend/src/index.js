@@ -59,9 +59,14 @@ document.addEventListener("DOMContentLoaded",function(e){
 
 function eventHandler(){
     document.addEventListener('click',(e) => {
-        console.log(e.target)
-        const removeButton = e.target.className
-        console.log(removeButton["data-pokemon-id"]) // LEFT OFF HERE> TRY TO FIND POKEMON ID
+        // console.log(e.target)
+        if (e.target.className === "release"){
+        const removeButton = e.target
+        const removeButtonId = removeButton.dataset.pokemonId
+        console.log("this is my button",removeButtonId)
+    }
+        // const removeButton = e.target.className
+        // console.log(e.target["data-pokemon-id"]) // LEFT OFF HERE. TRY TO FIND POKEMON ID
     })
 }
 
