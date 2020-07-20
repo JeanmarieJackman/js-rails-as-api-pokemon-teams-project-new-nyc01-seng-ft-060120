@@ -63,10 +63,10 @@ function eventHandler(){
         if (e.target.className === "release"){
         const removeButton = e.target
         const removeButtonId = removeButton.dataset.pokemonId
-        console.log("this is my button",removeButtonId)
+        console.log("this is my button",removeButtonId) // LEFT OFF HERE. TRY TO FIND POKEMON ID
     }
         // const removeButton = e.target.className
-        // console.log(e.target["data-pokemon-id"]) // LEFT OFF HERE. TRY TO FIND POKEMON ID
+        // console.log(e.target["data-pokemon-id"]) 
     })
 }
 
