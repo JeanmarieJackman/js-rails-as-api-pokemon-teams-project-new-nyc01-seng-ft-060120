@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded",function(e){
     const main = document.querySelector("main")
     
     
+    
     // When a user loads the page, they should see all trainers, 
     // with their current team of Pokemon.
     
@@ -14,7 +15,9 @@ document.addEventListener("DOMContentLoaded",function(e){
     function getTrainers(){
         fetch(TRAINERS_URL)
         .then(res => res.json())
-        .then(trainers => renderTrainers(trainers)
+        .then(trainers => {renderTrainers(trainers)
+            addPokemon(trainers)
+            getPokemons();}
         
     )}
 
@@ -57,16 +60,15 @@ document.addEventListener("DOMContentLoaded",function(e){
 // Whenever a user hits "Add Pokemon" and they have space on their team, 
 // they should get a new Pokemon.
 
-function eventHandler(){
-    document.addEventListener('click',(e) => {
-        // console.log(e.target)
-        if (e.target.className === "release"){
-        const removeButton = e.target
-        const removeButtonId = removeButton.dataset.pokemonId
-        console.log("this is my button",removeButtonId) // LEFT OFF HERE. TRY TO FIND POKEMON ID
-    }
-        // const removeButton = e.target.className
-        // console.log(e.target["data-pokemon-id"]) 
+function addPokemon(trainers){
+    main.addEventListener("click",(e) => {
+        // console.dir(e.target)
+        console.log(trainers)
+        if (e.target.innerText === "Add Pokemon"){
+            const button = e.target
+            console.log(button)
+            // trainers.
+        }
     })
 }
 
@@ -79,9 +81,33 @@ function eventHandler(){
 // Whenever a user hits "Release Pokemon" on a specific Pokemon team, 
 // that specific Pokemon should be released from the team.
 
+function eventHandler(){
+    document.addEventListener('click',(e) => {
+        // console.log(e.target)
+        if (e.target.className === "release"){
+            const removeButton = e.target
+            const pokemonId = removeButton.dataset.pokemonId
+            console.log("this is my button",removeButton.parentElement) 
+            
+            fetch(`${POKEMONS_URL}/${pokemonId}`, {
+                method: "DELETE"   
+            })
+            .then(resp => resp.json())
+            .then(data => {removeButton.parentElement.remove()
+                console.log(data)
+            })
+            // .catch(error => alert(error.message))
+
+         }
+       
+    })
+}
 
 
 eventHandler();
+// addPokemon();
 getTrainers();
-getPokemons();
+// getPokemons();
+
+
 })
